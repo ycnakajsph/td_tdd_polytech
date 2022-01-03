@@ -44,28 +44,28 @@ class TestFuncs(unittest.TestCase):
 		# math.isclose(a, b, abs_tol=0.0001)
 		self.assertTrue(math.isclose(
 						funcs.average(self.test_int_list[ORDERED_POS]),
-						3,5714,
-						0.001
+						3.5714,
+						abs_tol=0.001
 					)
 			)
 		self.assertTrue(math.isclose(
 						funcs.average(self.test_int_list[RAND_POS]),
-						3,5714,
-						0.001
+						3.5714,
+						abs_tol=0.001
 					)
 			)
 		self.assertEqual(funcs.average(self.test_int_list[ORDERED_POS_NEG]),2)
 		self.assertEqual(funcs.average(self.test_int_list[RAND_POS_NEG]),2)
 		self.assertTrue(math.isclose(
 						funcs.average(self.test_int_list[ORDERED_NEG]),
-						-3,5714,
-						0.001
+						-3.5714,
+						abs_tol=0.001
 					)
 			)
 		self.assertTrue(math.isclose(
 						funcs.average(self.test_int_list[RAND_NEG]),
-						-3,5714,
-						0.001
+						-3.5714,
+						abs_tol=0.001
 					)
 			)
 
