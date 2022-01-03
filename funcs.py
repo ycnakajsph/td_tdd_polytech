@@ -23,3 +23,6 @@ def median(list_int):
 	else :
 		return (list_int[ind]+list_int[ind+1])/2.0
 
+
+def stddev(self):
+	return -1

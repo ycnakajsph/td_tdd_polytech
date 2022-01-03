@@ -29,7 +29,7 @@ class TestFuncs(unittest.TestCase):
 				[-10, -5, -4, -3, -2, -1, 0], # ORDERED_NEG
 				[-1, -4, -2, -3, -5, 0, -10], # RAND_NEG
 				[ -5, -2, 0, 1, 2, 3, 4, 5], # ORDERED_POS_NEG_SIZE_PAIR
-				[ 1, 2] #TWO_POS_LIST
+				[ 1, 2] # TWO_POS_LIST
 			]
 
 	def test_max_int(self):
@@ -86,6 +86,19 @@ class TestFuncs(unittest.TestCase):
 		self.assertEqual(funcs.median(self.test_int_list[ORDERED_POS_NEG_SIZE_PAIR]),1.5)
 		self.assertEqual(funcs.median(self.test_int_list[TWO_POS_LIST]),1.5)
 
+	def test_stddev(self):
+		self.assertEqual(funcs.stddev(self.test_int_list[EMPTY_LIST]),None)
+		self.assertEqual(funcs.stddev(self.test_int_list[ZERO_LIST]),0)
+		self.assertEqual(funcs.stddev(self.test_int_list[SINGLE_POS]),0)
+		self.assertEqual(funcs.stddev(self.test_int_list[SINGLE_NEG]),0)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[ORDERED_POS]),3.0639,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[RAND_POS]),3.0639,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[ORDERED_POS_NEG]),4.0551,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[RAND_POS_NEG]),4.0551,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[ORDERED_NEG]),3.0639,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[RAND_NEG]),3.0639,places=3)
+		self.assertAlmostEqual(funcs.stddev(self.test_int_list[ORDERED_POS_NEG_SIZE_PAIR]),3.0822,places=3)
+		self.assertEqual(funcs.stddev(self.test_int_list[TWO_POS_LIST]),0.5)
 
 
 if __name__ == '__main__':
