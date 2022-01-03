@@ -1,3 +1,5 @@
+import math
+
 def max_int(a,b):
 	if a < b :
 		return b
@@ -24,5 +26,12 @@ def median(list_int):
 		return (list_int[ind]+list_int[ind+1])/2.0
 
 
-def stddev(self):
-	return -1
+def stddev(list_int):
+	if len(list_int) == 0 :
+		return None
+	av = average(list_int)
+	dev = 0
+	for item in list_int :
+		dev = dev + (item-av)*(item-av)
+
+	return math.sqrt(dev/len(list_int))
