@@ -5,4 +5,6 @@ def max_int(a,b):
 		return a
 
 def average(list_int):
-	return -1
+	if len(list_int) == 0 :
+		return None
+	return sum(list_int)/len(list_int)
