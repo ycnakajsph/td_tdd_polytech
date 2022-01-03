@@ -1,7 +1,6 @@
 import funcs
 import unittest
 import random
-import math
 
 EMPTY_LIST=0
 ZERO_LIST=1
@@ -41,33 +40,33 @@ class TestFuncs(unittest.TestCase):
 		self.assertEqual(funcs.average(self.test_int_list[SINGLE_NEG]),-2)
 		self.assertEqual(funcs.average(self.test_int_list[SINGLE_POS]),2)
 		# first problem : how to compare floats? easiest way :
-		# math.isclose(a, b, abs_tol=0.0001)
-		self.assertTrue(math.isclose(
+		# self.assertAlmostEqual(a,b,places=<n decimals> )
+		self.assertAlmostEqual(
 						funcs.average(self.test_int_list[ORDERED_POS]),
 						3.5714,
-						abs_tol=0.001
+						places=3
 					)
-			)
-		self.assertTrue(math.isclose(
+
+		self.assertAlmostEqual(
 						funcs.average(self.test_int_list[RAND_POS]),
 						3.5714,
-						abs_tol=0.001
+						places=3
 					)
-			)
+
 		self.assertEqual(funcs.average(self.test_int_list[ORDERED_POS_NEG]),2)
 		self.assertEqual(funcs.average(self.test_int_list[RAND_POS_NEG]),2)
-		self.assertTrue(math.isclose(
+		self.assertAlmostEqual(
 						funcs.average(self.test_int_list[ORDERED_NEG]),
 						-3.5714,
-						abs_tol=0.001
+						places=3
 					)
-			)
-		self.assertTrue(math.isclose(
+
+		self.assertAlmostEqual(
 						funcs.average(self.test_int_list[RAND_NEG]),
 						-3.5714,
-						abs_tol=0.001
+						places=3
 					)
-			)
+
 
 
 if __name__ == '__main__':
