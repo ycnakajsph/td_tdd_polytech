@@ -13,6 +13,7 @@ RAND_POS_NEG=7
 ORDERED_NEG=8
 RAND_NEG=9
 ORDERED_POS_NEG_SIZE_PAIR=10
+TWO_POS_LIST=11
 
 class TestFuncs(unittest.TestCase):
 
@@ -27,7 +28,8 @@ class TestFuncs(unittest.TestCase):
 				[3, 2, 5, -2, 4, -5, 10, 0, 1], # RAND_POS_NEG
 				[-10, -5, -4, -3, -2, -1, 0], # ORDERED_NEG
 				[-1, -4, -2, -3, -5, 0, -10], # RAND_NEG
-				[ -5, -2, 0, 1, 2, 3, 4, 5] # ORDERED_POS_NEG_SIZE_PAIR
+				[ -5, -2, 0, 1, 2, 3, 4, 5], # ORDERED_POS_NEG_SIZE_PAIR
+				[ 1, 2] #TWO_POS_LIST
 			]
 
 	def test_max_int(self):
@@ -82,6 +84,7 @@ class TestFuncs(unittest.TestCase):
 		self.assertEqual(funcs.median(self.test_int_list[ORDERED_NEG]),-3)
 		self.assertEqual(funcs.median(self.test_int_list[RAND_NEG]),-3)
 		self.assertEqual(funcs.median(self.test_int_list[ORDERED_POS_NEG_SIZE_PAIR]),1.5)
+		self.assertEqual(funcs.median(self.test_int_list[TWO_POS_LIST]),1.5)
 
 
 

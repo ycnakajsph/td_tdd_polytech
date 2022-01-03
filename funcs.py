@@ -10,4 +10,16 @@ def average(list_int):
 	return sum(list_int)/len(list_int)
 
 def median(list_int):
-	return -1
+	if len(list_int) == 0 :
+		return None
+	if len(list_int) == 1 :
+		return list_int[0]
+	list_int.sort()
+	len_list = len(list_int)
+	ind = (len_list - 1) // 2
+
+	if len_list%2 :
+		return list_int[ind]
+	else :
+		return (list_int[ind]+list_int[ind+1])/2.0
+
