@@ -71,5 +71,28 @@ def AddUser(db_path,username,password,spublickey,sprivatekey,epublickey,eprivate
 	return True
 
 def CheckUserLogin(db_path,username,password):
-	return False
+	con = sqlite3.connect(db_path)
+	cur = con.cursor()
 
+	cur.execute("SELECT password FROM users WHERE username=:username",{"username":username})
+	ret = cur.fetchall()
+	if len(ret) != 1 or password != ret[0][0] :
+		con.close()
+		return False
+	con.close()
+	return True
+
+def CheckDbHealth(db_path):
+	con = sqlite3.connect(db_path)
+	cur = con.cursor()
+	cur.execute("SELECT * FROM users")
+	ret = cur.fetchall()
+	if len(ret) == 0 :
+		return True # empty Db is healthy..?
+	for usr in ret :
+		if any ([not CheckUsername(usr[0]) , not CheckPassword(usr[1]),
+			not CheckKey(usr[2]) , not CheckKey(usr[3]),
+			not CheckKey(usr[4]) , not CheckKey(usr[5]) ]):
+			return False
+
+	return True
