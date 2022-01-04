@@ -35,3 +35,6 @@ def stddev(list_int):
 		dev = dev + (item-av)*(item-av)
 
 	return math.sqrt(dev/len(list_int))
+
+def is_geoprog(list_int):
+	return -1

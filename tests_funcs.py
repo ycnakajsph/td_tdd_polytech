@@ -100,6 +100,14 @@ class TestFuncs(unittest.TestCase):
 		self.assertAlmostEqual(funcs.stddev(self.test_int_list[ORDERED_POS_NEG_SIZE_PAIR]),3.0822,places=3)
 		self.assertEqual(funcs.stddev(self.test_int_list[TWO_POS_LIST]),0.5)
 
+	def test_is_geoprog(self):
+		self.assertFalse(funcs.is_geoprog([]))
+		self.assertFalse(funcs.is_geoprog([0]))
+		self.assertTrue(funcs.is_geoprog([2,6,18,54])) # u0 = 2 , r = 3
+		self.assertTrue(funcs.is_geoprog([2,-6,18,-54])) # u0 = 2 , r = -3
+		self.assertTrue(funcs.is_geoprog([-2,6,-18,54])) # u0 = -2 , r = -3
+		self.assertFalse(funcs.is_geoprog([-2,6,18,54])) # third item wrong
+		self.assertFalse(funcs.is_geoprog([-2,6,-18,54,162])) # last item wrong
 
 if __name__ == '__main__':
 	unittest.main()
