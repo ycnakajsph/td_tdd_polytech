@@ -32,3 +32,7 @@ def CheckKey(key):
 	if len(key) != 128:
 		return False
 	return True
+
+def CreateDb(db_path):
+	return True
+

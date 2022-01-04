@@ -2,8 +2,11 @@ import db_stuff
 import unittest
 import string
 import random
+import sqlite3
 
 class TestFuncs(unittest.TestCase):
+
+	test_db = "test_db.db"
 
 	def test_CheckUsername(self):
 		self.assertFalse(db_stuff.CheckUsername("")) # empty
@@ -34,6 +37,20 @@ class TestFuncs(unittest.TestCase):
 			) # terrible code to generate a random string
 		)
 		self.assertFalse(db_stuff.CheckKey(""))
+
+	def test_CreateDb(self):
+		self.assertTrue(db_stuff.CreateDb(self.test_db))
+		# Let's check that the created db has all necessary tables and fields
+
+		con = sqlite3.connect(self.test_db)
+		cursor = con.execute('select * from USERS')
+		names = list(map(lambda x: x[0], cursor.description))
+		self.assertIn("username",names)
+		self.assertIn("password",names)
+		self.assertIn("spublickey",names)
+		self.assertIn("sprivatekey",names)
+		self.assertIn("epublickey",names)
+		self.assertIn("eprivatekey",names)
 
 
 if __name__ == '__main__':
