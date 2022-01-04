@@ -89,6 +89,23 @@ class TestFuncs(unittest.TestCase):
 		self.assertFalse(db_stuff.CheckUserLogin(self.test_db,"aaaa","aAaa#a9a")) # Bad Password
 		self.assertFalse(db_stuff.CheckUserLogin(self.test_db,"aaab","aAaa#a9aa")) # Bad Username
 
+	def test_CheckDbHealth(self):
+		key = self.CreateRandomString(128)
+		self.assertTrue(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key))
+		key = self.CreateRandomString(128)
+		self.assertTrue(db_stuff.AddUser(self.test_db,"bbbb","aAaa#a9aa",key,key,key,key))
+
+		self.assertTrue(db_stuff.CheckDbHealth(self.test_db))
+
+		# Let's add a corrupt User :
+		con = sqlite3.connect(self.test_db)
+		cur = con.cursor()
+		cur.execute("INSERT INTO users VALUES (?,?,?,?,?,?)",
+				("#######","aAaa#a9aa",key,key,key,key))
+		con.commit()
+		con.close()
+		self.assertFalse(db_stuff.CheckDbHealth(self.test_db))
+		# to be really complete we shall also add tests with bad passwd, bad key and so on
 
 if __name__ == '__main__':
 	unittest.main()
