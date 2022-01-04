@@ -1,5 +1,7 @@
 import db_stuff
 import unittest
+import string
+import random
 
 class TestFuncs(unittest.TestCase):
 
@@ -19,6 +21,19 @@ class TestFuncs(unittest.TestCase):
 		self.assertFalse(db_stuff.CheckPassword("aaaa#a9aa")) # good size no MAJ Special number
 		self.assertFalse(db_stuff.CheckPassword("aAaaaa9aa")) # good size MAJ no Special number
 		self.assertFalse(db_stuff.CheckPassword("aAaa#aaaa")) # good size MAJ Special no number
+
+	def test_CheckKey(self):
+		self.assertTrue(
+			db_stuff.CheckKey(
+				"".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = 128))
+			) # terrible code to generate a random string
+		)
+		self.assertFalse(
+			db_stuff.CheckKey(
+				"".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = 127))
+			) # terrible code to generate a random string
+		)
+		self.assertFalse(db_stuff.CheckKey(""))
 
 
 if __name__ == '__main__':

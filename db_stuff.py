@@ -27,3 +27,8 @@ def CheckPassword(password):
 			has_lower = True
 
 	return has_spec_char and has_number and has_upper and has_lower
+
+def CheckKey(key):
+	if len(key) != 128:
+		return False
+	return True
