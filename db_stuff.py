@@ -55,4 +55,17 @@ def CreateDb(db_path):
 	return True
 
 def AddUser(db_path,username,password,spublickey,sprivatekey,epublickey,eprivatekey):
-	return False
+	if any ([not CheckUsername(username) , not CheckPassword(password),
+		not CheckKey(spublickey) , not CheckKey(sprivatekey),
+		not CheckKey(epublickey) , not CheckKey(eprivatekey) ]):
+		return False
+	con = sqlite3.connect(db_path)
+	cur = con.cursor()
+	try:
+		cur.execute("INSERT INTO users VALUES (?,?,?,?,?,?)",(username,password,spublickey,sprivatekey,epublickey,eprivatekey))
+	except sqlite3.IntegrityError: # this means that we failed to insert
+		con.close()
+		return False
+	con.commit()
+	con.close()
+	return True

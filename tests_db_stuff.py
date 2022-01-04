@@ -74,7 +74,10 @@ class TestFuncs(unittest.TestCase):
 		key = self.CreateRandomString(128) # nobody said anything about using 4 times the same key (yet)
 		self.assertFalse(db_stuff.AddUser(self.test_db,"aaa","aAaa#a9aa",key,key,key,key)) # bad username
 		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","",key,key,key,key)) # bad password
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",self.CreateRandomString(127),key,key,key)) # bad key
 		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,self.CreateRandomString(127),key,key)) # bad key
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,self.CreateRandomString(127),key)) # bad key
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,self.CreateRandomString(127))) # bad key
 		self.assertTrue(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key))
 		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key)) # Not supposed to be able to add 2* same user
 
