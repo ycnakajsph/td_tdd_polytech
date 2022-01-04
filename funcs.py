@@ -47,4 +47,16 @@ def is_geoprog(list_int):
 	return True
 
 def get_nnextgeoprog(nnext,list_int):
-	return (False, None)
+	ret = is_geoprog(list_int)
+	if ret == True:
+		if nnext == 0:
+			return (True,None)
+		ret_list = []
+		r = list_int[1]/list_int[0]
+		un = list_int[-1] # get last elem
+		for i in range(nnext):
+			un = r*un
+			ret_list.append(un)
+		return (True,ret_list)
+	else:
+		return (False, None)
