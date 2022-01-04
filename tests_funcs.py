@@ -109,5 +109,12 @@ class TestFuncs(unittest.TestCase):
 		self.assertFalse(funcs.is_geoprog([-2,6,18,54])) # third item wrong
 		self.assertFalse(funcs.is_geoprog([-2,6,-18,54,162])) # last item wrong
 
+	def test_get_nnextgeoprog(self):
+		self.assertEqual(funcs.get_nnextgeoprog(2,[]),(False,None)) # one edge case
+		self.assertEqual(funcs.get_nnextgeoprog(2,[2,-6,18,-54]),(True, [162,-486])) # one good prog
+		self.assertEqual(funcs.get_nnextgeoprog(2,[-2,6,18,54]),(False,None)) # one wrong prog
+		self.assertEqual(funcs.get_nnextgeoprog(0,[-2,6,18,-54]),(True,None)) # in case we ask for 0 elem ret True None with true prog
+		self.assertEqual(funcs.get_nnextgeoprog(0,[-2,6,18,54]),(False,None)) # in case we ask for 0 elem ret False None with false prog
+
 if __name__ == '__main__':
 	unittest.main()

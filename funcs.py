@@ -45,3 +45,6 @@ def is_geoprog(list_int):
 		if list_int[i+1]/list_int[i] != r:
 			return False
 	return True
+
+def get_nnextgeoprog(nnext,list_int):
+	return (False, None)
