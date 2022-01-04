@@ -42,13 +42,13 @@ def CreateDb(db_path):
 		return False
 	con = sqlite3.connect(db_path)
 	cur = con.cursor()
-	cur.execute('''CREATE TABLE USERS
-			(username text,
-			password text,
-			spublickey text,
-			sprivatekey text,
-			epublickey text,
-			eprivatekey text
+	cur.execute('''CREATE TABLE users
+			(username TEXT NOT NULL UNIQUE ,
+			password TEXT NOT NULL,
+			spublickey TEXT NOT NULL,
+			sprivatekey TEXT NOT NULL,
+			epublickey TEXT NOT NULL,
+			eprivatekey TEXT NOT NULL
 			)''')
 	con.commit()
 	con.close()
