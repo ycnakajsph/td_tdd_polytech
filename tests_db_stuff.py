@@ -1,12 +1,23 @@
-import db_stuff
 import unittest
 import string
 import random
 import sqlite3
+import os
+
+import db_stuff
 
 class TestFuncs(unittest.TestCase):
 
 	test_db = "test_db.db"
+
+	def setUp(self):
+		if os.path.isfile(self.test_db):
+			os.remove(self.test_db)
+		db_stuff.CreateDb(self.test_db)
+
+	def tearDown(self):
+		if os.path.isfile(self.test_db):
+			os.remove(self.test_db)
 
 	def test_CheckUsername(self):
 		self.assertFalse(db_stuff.CheckUsername("")) # empty
@@ -39,6 +50,8 @@ class TestFuncs(unittest.TestCase):
 		self.assertFalse(db_stuff.CheckKey(""))
 
 	def test_CreateDb(self):
+		if os.path.isfile(self.test_db):
+			os.remove(self.test_db)
 		self.assertTrue(db_stuff.CreateDb(self.test_db))
 		# Let's check that the created db has all necessary tables and fields
 
@@ -53,6 +66,7 @@ class TestFuncs(unittest.TestCase):
 		self.assertIn("eprivatekey",names)
 
 		self.assertFalse(db_stuff.CreateDb(self.test_db)) # verifying we cannot recreate the db
+
 
 
 if __name__ == '__main__':
