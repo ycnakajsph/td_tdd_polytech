@@ -81,6 +81,13 @@ class TestFuncs(unittest.TestCase):
 		self.assertTrue(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key))
 		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key)) # Not supposed to be able to add 2* same user
 
+	def test_UserLogin(self):
+		# Let's add a correct user :
+		key = self.CreateRandomString(128)
+		self.assertTrue(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key))
+		self.assertTrue(db_stuff.CheckUserLogin(self.test_db,"aaaa","aAaa#a9aa"))
+		self.assertFalse(db_stuff.CheckUserLogin(self.test_db,"aaaa","aAaa#a9a")) # Bad Password
+		self.assertFalse(db_stuff.CheckUserLogin(self.test_db,"aaab","aAaa#a9aa")) # Bad Username
 
 
 if __name__ == '__main__':

@@ -69,3 +69,7 @@ def AddUser(db_path,username,password,spublickey,sprivatekey,epublickey,eprivate
 	con.commit()
 	con.close()
 	return True
+
+def CheckUserLogin(db_path,username,password):
+	return False
+
