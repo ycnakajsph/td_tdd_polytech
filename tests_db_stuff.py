@@ -13,12 +13,12 @@ class TestFuncs(unittest.TestCase):
 
 	def test_CheckPassword(self):
 		self.assertFalse(db_stuff.CheckPassword("")) # empty
-		self.assertFalse(db_stuff.CheckPassword("aaaaaaa")) # bad size no MAJ no Special
-		self.assertFalse(db_stuff.CheckPassword("aAaa#aa")) # bad size MAJ Special
-		self.assertFalse(db_stuff.CheckPassword("aaaaaaaa")) # good size no MAJ no Special
-		self.assertFalse(db_stuff.CheckPassword("aaaaAaaa")) # good size MAJ no Special
-		self.assertFalse(db_stuff.CheckPassword("aaaa#aaa")) # good size no MAJ Special
-		self.assertTrue(db_stuff.CheckPassword("aAaa#aaa")) # good size MAJ Special
+		self.assertTrue(db_stuff.CheckPassword("aAaa#a9aa")) # good size MAJ Special number
+
+		self.assertFalse(db_stuff.CheckPassword("aAaa#a9")) # bad size MAJ Special number
+		self.assertFalse(db_stuff.CheckPassword("aaaa#a9aa")) # good size no MAJ Special number
+		self.assertFalse(db_stuff.CheckPassword("aAaaaa9aa")) # good size MAJ no Special number
+		self.assertFalse(db_stuff.CheckPassword("aAaa#aaaa")) # good size MAJ Special no number
 
 
 if __name__ == '__main__':
