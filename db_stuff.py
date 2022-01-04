@@ -1,3 +1,6 @@
+import sqlite3
+import os
+
 def CheckUsername(username):
 	if len(username) <= 3 :
 		return False
@@ -34,5 +37,20 @@ def CheckKey(key):
 	return True
 
 def CreateDb(db_path):
+	# check if file exists if it does return False
+	if os.path.isfile(db_path):
+		return False
+	con = sqlite3.connect(db_path)
+	cur = con.cursor()
+	cur.execute('''CREATE TABLE USERS
+			(username text,
+			password text,
+			spublickey text,
+			sprivatekey text,
+			epublickey text,
+			eprivatekey text
+			)''')
+	con.commit()
+	con.close()
 	return True
 

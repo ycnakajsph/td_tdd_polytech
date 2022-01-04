@@ -52,6 +52,8 @@ class TestFuncs(unittest.TestCase):
 		self.assertIn("epublickey",names)
 		self.assertIn("eprivatekey",names)
 
+		self.assertFalse(db_stuff.CreateDb(self.test_db)) # verifying we cannot recreate the db
+
 
 if __name__ == '__main__':
 	unittest.main()
