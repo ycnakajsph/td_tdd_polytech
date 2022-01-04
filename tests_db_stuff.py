@@ -36,15 +36,18 @@ class TestFuncs(unittest.TestCase):
 		self.assertFalse(db_stuff.CheckPassword("aAaaaa9aa")) # good size MAJ no Special number
 		self.assertFalse(db_stuff.CheckPassword("aAaa#aaaa")) # good size MAJ Special no number
 
+	def CreateRandomString(self,n):
+		return "".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = n))
+
 	def test_CheckKey(self):
 		self.assertTrue(
 			db_stuff.CheckKey(
-				"".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = 128))
+				self.CreateRandomString(128)
 			) # terrible code to generate a random string
 		)
 		self.assertFalse(
 			db_stuff.CheckKey(
-				"".join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = 127))
+				self.CreateRandomString(127)
 			) # terrible code to generate a random string
 		)
 		self.assertFalse(db_stuff.CheckKey(""))
@@ -66,6 +69,14 @@ class TestFuncs(unittest.TestCase):
 		self.assertIn("eprivatekey",names)
 
 		self.assertFalse(db_stuff.CreateDb(self.test_db)) # verifying we cannot recreate the db
+
+	def test_AddUser(self):
+		key = self.CreateRandomString(128) # nobody said anything about using 4 times the same key (yet)
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaa","aAaa#a9aa",key,key,key,key)) # bad username
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","",key,key,key,key)) # bad password
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,self.CreateRandomString(127),key,key)) # bad key
+		self.assertTrue(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key))
+		self.assertFalse(db_stuff.AddUser(self.test_db,"aaaa","aAaa#a9aa",key,key,key,key)) # Not supposed to be able to add 2* same user
 
 
 

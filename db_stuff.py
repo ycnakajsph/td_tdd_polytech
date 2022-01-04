@@ -54,3 +54,5 @@ def CreateDb(db_path):
 	con.close()
 	return True
 
+def AddUser(db_path,username,password,spublickey,sprivatekey,epublickey,eprivatekey):
+	return False
