@@ -37,4 +37,11 @@ def stddev(list_int):
 	return math.sqrt(dev/len(list_int))
 
 def is_geoprog(list_int):
-	return -1
+	if len(list_int) in [0,1] :
+		return None
+
+	r = list_int[1]/list_int[0]
+	for i in range(len(list_int)-1):
+		if list_int[i+1]/list_int[i] != r:
+			return False
+	return True
